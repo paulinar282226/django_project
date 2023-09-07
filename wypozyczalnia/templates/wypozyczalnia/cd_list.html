@@ -1,0 +1,30 @@
+
+
+{% extends 'home.html' %}
+{% block content %}
+
+<table>
+        <tr>
+         <th> Title </th>
+         <th> Band </th>
+         <th> Genre </th>
+         <th> Duration </th>
+            {% if request.user.is_authenticated %}
+            <th colspan="2"> Action </th>
+            {% endif %}
+     </tr>
+    {% for CD in cd_list %}
+    <tr>
+        <td>{{CD.title}}</td>
+        <td>{{CD.band}}</td>
+        <td>{{CD.genre}}</td>
+        <td>{{CD.duration}}</td>
+        {% if request.user.is_authenticated %}
+        <td><a href="{% url 'cd:cd_update' CD.id %}">Update</a></td>
+        <td><a href="{% url 'cd:cd_delete' CD.id %}">Delete</a></td>
+        <td><a href="{% url 'cd:cd_create' %}">Create</a></td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+    </table>
+{% endblock %}

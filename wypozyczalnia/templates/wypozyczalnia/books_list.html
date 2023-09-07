@@ -1,0 +1,36 @@
+
+{% extends 'home.html' %}
+{% block content %}
+    <style>
+        a {
+        text-decoration: none;
+        color: red;
+        }
+    </style>
+    <table>
+     <tr>
+         <th> Title </th>
+         <th> Author </th>
+         <th> Genre </th>
+         <th> ISBN </th>
+         {% if request.user.is_authenticated %}
+         <th colspan="2"> Action </th>
+         {% endif %}
+     </tr>
+    {% for book in books_list %}
+    <tr>
+        <td>{{book.title}}</td>
+        <td>{{book.author}}</td>
+        <td>{{book.genre}}</td>
+        <td>{{book.isbn}}</td>
+        {% if request.user.is_authenticated %}
+            <td><a href="{% url 'book:book_update' book.id %}" >Update</a></td>
+            <td><a href="{% url 'book:book_delete' book.id %}">Delete</a></td>
+            <td><a href="{% url 'book:book_create' %}">Create</a></td>
+        {% endif %}
+    </tr>
+
+    {% endfor %}
+    </table>
+{% endblock %}
+

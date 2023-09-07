@@ -1,0 +1,27 @@
+{% extends 'home.html' %}
+{% block content %}
+    <table>
+        <tr>
+         <th> Title </th>
+         <th> Director </th>
+         <th> Genre </th>
+         <th> Duration </th>
+           {% if request.user.is_authenticated %}
+         <th colspan="2"> Action </th>
+            {% endif %}
+     </tr>
+    {% for movie in movies_list %}
+    <tr>
+        <td>{{movie.title}}</td>
+        <td>{{movie.director}}</td>
+        <td>{{movie.genre}}</td>
+        <td>{{movie.duration}}</td>
+        {% if request.user.is_authenticated %}
+        <td><a href="{% url 'movie:movie_update' movie.id %} ">Update</a></td>
+        <td><a href="{% url 'movie:movie_delete' movie.id %}">Delete</a></td>
+        <td><a href="{% url 'movie:movie_create' %}">Create</a></td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+    </table>
+{% endblock %}

@@ -1,0 +1,24 @@
+
+{% extends 'home.html' %}
+{% block content %}
+
+    <table>
+        <tr>
+         <th> Name </th>
+         <th> City </th>
+         <th> Address </th>
+
+     </tr>
+    {% for rental in rental_list %}
+    <tr>
+        <td>{{rental.name}}</td>
+        <td>{{rental.city}}</td>
+        <td>{{rental.address}}</td>
+        {% if request.user.is_authenticated %}
+        <td><a href="{% url 'rental:rental_create' %}">Create</a></td>
+        {% endif %}
+
+    </tr>
+    {% endfor %}
+    </table>
+{% endblock %}
